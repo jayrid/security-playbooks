@@ -186,6 +186,17 @@ HTTPServer(('0.0.0.0', 8080), H).serve_forever()
 "
 ```
 
+### Test 7 — Blind SSRF via HTML-to-PDF Generators
+
+Applications that convert user-supplied HTML or URLs into PDF documents are often vulnerable to SSRF.
+
+**Example payload:**
+```html
+<iframe src="http://169.254.169.254/latest/meta-data/"></iframe>
+```
+
+When the PDF generator renders this HTML, it will attempt to fetch the iframe source from the internal metadata service. This can lead to AWS/cloud metadata exposure or access to internal administration panels.
+
 ---
 
 ## Common Endpoints to Test

@@ -181,6 +181,16 @@ POST /api/feedback
 <a href="data:text/html,<script>alert(1)</script>">click</a>
 ```
 
+### Test 7 — Template Injection Polyglot
+
+Detection payload for Server-Side Template Injection (SSTI) and client-side template engines:
+
+```
+{{7*7}}${7*7}<%= 7*7 %>
+```
+
+This polyglot is used to detect if the input is being evaluated by common template engines (Jinja2, Twig, Mako, ERB, etc.). If it reflects `494949`, the application is vulnerable to Template Injection, which can often be escalated to XSS or RCE.
+
 ---
 
 ## Common Endpoints to Test

